@@ -1,0 +1,222 @@
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
+{ config, pkgs, ... }:
+
+{
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+      ./user-configuration.nix
+    ];
+
+  # Supposedly better for SSDs.
+  fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
+
+  # Use the GRUB 2 boot loader.
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "nodev";
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.cleanTmpDir = true;
+
+  # Register our boot device
+  boot.initrd.luks.devices = [
+    {
+      name = "root";
+      device = "/dev/disk/by-uuid/e888a938-2281-491a-8978-580bb0948a1a";
+      preLVM = true;
+      allowDiscards = true;
+    }
+  ];
+
+  hardware.bluetooth.enable = true;
+
+  hardware.pulseaudio = {
+    enable = true;
+    # NixOS allows either a lightweight build (default) or full build
+    # of PulseAudio to be installed. Only the full build has
+    # Bluetooth support, so it must be selected here.
+    package = pkgs.pulseaudioFull;
+
+    # Enable TCP streaming
+    tcp.enable = true;
+    tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" "192.168.1.0/24" ];
+  };
+
+  hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
+  hardware.opengl.driSupport32Bit = true;
+  hardware.pulseaudio.support32Bit = true;
+
+  # Define your hostname.
+  networking.hostName = "nixjsb";
+
+  # Enables wireless support via network-manager.
+  networking.networkmanager.enable = true;
+
+  # Select internationalisation properties.
+  i18n = {
+    consoleFont = "term-32n";
+    consoleKeyMap = "sv-latin1";
+    defaultLocale = "en_US.UTF-8";
+  };
+
+  # Set your time zone.
+  time.timeZone = "Europe/Stockholm";
+
+  # List packages installed in system profile. To search by name, run:
+  # $ nix-env -qaP | grep wget
+  environment.systemPackages = with pkgs; [
+    acpi
+    bashCompletion
+    coreutils
+    cryptsetup
+    curl
+    ghostscript
+    gitAndTools.gitFull
+    gtk3
+    gnupg
+    openssh
+    openssl
+    unrar
+    utillinux
+    vim
+    wget
+    zip
+    zsh
+  ];
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  programs.bash = {
+    enableCompletion = true;
+
+    # fix problem with emacs tramp (https://github.com/NixOS/nixpkgs/issues/3368)
+    promptInit = "PS1=\"# \"";
+
+  };
+
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
+  programs.ssh.forwardX11 = true;
+
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+  services.openssh.forwardX11 = true;
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Enable redshift
+  services.redshift = {
+    enable = true;
+    brightness.day = "0.8";
+    brightness.night = "0.6";
+    longitude = "11.98";
+    latitude = "57.68";
+  };
+
+  services.cron.enable = true;
+
+  services.emacs.install = true;
+  services.emacs.defaultEditor = true;
+
+  # Enable Mopidy music daemon
+  services.mopidy = {
+    enable = true;
+    extensionPackages = [ pkgs.mopidy-spotify pkgs.mopidy-mopify ];
+    configuration = ''
+      [local]
+      media_dir = /var/local/music/
+
+      [spotify]
+      username = jassob
+      password = SECRET
+      client_id = SECRET
+      client_secret = SECRET
+
+      [spotify_web]
+      enabled = true
+      client_id = SECRET
+      client_secret = SECRET
+
+      [audio]
+      output = pulsesink server=127.0.0.1
+  '';
+  };
+
+  # Enable the X11 windowing system.
+  services.xserver = {
+    enable = true;
+    displayManager.lightdm.enable = true;
+    desktopManager.gnome3.enable = true;
+    windowManager.exwm.enable = true;
+    windowManager.xmonad.enable = true;
+    desktopManager.default = "none";
+    windowManager.default = "xmonad";
+
+    # Keyboard
+    layout = "se";
+    xkbOptions = "ctrl:nocaps";
+
+    libinput.enable = true;
+  };
+
+  # TiMidity++ Daemon
+  systemd.user.services.timidity = {
+    description = "TiMidity++ Daemon";
+    after = [ "sound.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.timidity}/bin/timidity -iA -Os";
+      ExecStop = "/run/current-system/sw/bin/pkill timidity";
+    };
+    wantedBy = [ "default.target" ];
+  };
+
+  virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd.qemuPackage = pkgs.qemu_kvm;
+
+  nixpkgs.config = {
+    # Enable support for broadcom_sta
+    allowUnfree = true;
+
+    # Overriding packages
+    # TODO: Add my emacs packages
+    packageOverrides = pkgs: {
+      # Define my own Emacs
+      emacs = pkgs.lib.overrideDerivation (pkgs.emacs.override {
+        # Use gtk3 instead of the default gtk2
+        withGTK3 = true;
+
+        # Make sure imagemagick is a dependency because I want to look
+        # at pictures in Emacs
+        imagemagick = pkgs.imagemagickBig;
+      }) (attrs: {});
+    };
+  };
+
+  # Fonts
+  fonts = {
+    enableFontDir = true;
+    enableGhostscriptFonts = true;
+    fonts = with pkgs; [
+      corefonts # Microsoft free fonts
+      inconsolata
+      ubuntu_font_family
+      dejavu_fonts
+      fira-code
+      fira-code-symbols
+      hasklig
+    ];
+  };
+
+  # This value determines the NixOS release with which your system is
+  # to be compatible, in order to avoid breaking some software such as
+  # database servers. You should change this only after NixOS release
+  # notes say you should.
+  system.stateVersion = "17.09"; # Did you read the comment?
+}
