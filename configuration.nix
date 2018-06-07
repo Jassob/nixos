@@ -9,52 +9,31 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./user-configuration.nix
+
+      # Machine configuration, choose one
+      # ./machines/nixjsb.nix  # Macbook
+      # ./machines/nixbook.nix # Zenbook
     ];
 
   # Supposedly better for SSDs.
   fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
 
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev";
-  boot.loader.efi.canTouchEfiVariables = true;
   boot.cleanTmpDir = true;
 
-  # Register our boot device
-  boot.initrd.luks.devices = [
-    {
-      name = "root";
-      device = "/dev/disk/by-uuid/e888a938-2281-491a-8978-580bb0948a1a";
-      preLVM = true;
-      allowDiscards = true;
-    }
-  ];
+  hardware.pulseaudio = {
+   enable = true;
+   support32Bit = true;
 
-  hardware = {
-    bluetooth.enable = true;
-    cpu.intel.updateMicrocode = true;
+   # NixOS allows either a lightweight build (default) or full build
+   # of PulseAudio to be installed. Only the full build has
+   # Bluetooth support, so it must be selected here.
+   package = pkgs.pulseaudioFull;
 
-    opengl.extraPackages = [ pkgs.vaapiIntel ];
-    opengl.driSupport32Bit = true;
-
-    pulseaudio = {
-      enable = true;
-      support32Bit = true;
-
-      # NixOS allows either a lightweight build (default) or full build
-      # of PulseAudio to be installed. Only the full build has
-      # Bluetooth support, so it must be selected here.
-      package = pkgs.pulseaudioFull;
-
-      # Enable TCP streaming
-      tcp.enable = true;
-      tcp.anonymousClients.allowedIpRanges =
-        [ "127.0.0.1" "192.168.1.0/24" ];
-    };
+   # Enable TCP streaming
+   tcp.enable = true;
+   tcp.anonymousClients.allowedIpRanges =
+     [ "127.0.0.1" "192.168.1.0/24" ];
   };
-
-  # Define your hostname.
-  networking.hostName = "nixjsb";
 
   # Enables wireless support via network-manager.
   networking.networkmanager.enable = true;
