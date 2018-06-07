@@ -40,6 +40,7 @@
         pavucontrol
         pciutils
         rofi-pass
+        sshfs
         steam
         stow
         termite
