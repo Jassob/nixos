@@ -3,13 +3,20 @@ with pkgs;
 
 [
   # Applications
+  ag
+  browserpass
+  coreutils
   drive
   dropbox-cli
+  fasd
+  file
   firefox
+  fzf
   gitAndTools.gitFull
   gnupg
   keybase
   light
+  networkmanager
   openssh
   pass
   pavucontrol
@@ -19,8 +26,10 @@ with pkgs;
   steam
   stow
   termite
+  unzip
   usbutils
   virtmanager
+  vlc
 
   # Haskell development
   haskellPackages.ghc
@@ -29,15 +38,20 @@ with pkgs;
   haskellPackages.cabal2nix
 
   # For my XMonad setup
+  blueman
   compton
   dunst
+  feh
+  i3lock
   imagemagick
   libnotify
   ncmpcpp
-  pamixer
   pavucontrol
+  pulsemixer
   rofi
   scrot
   sxhkd
+  trayer
+  haskellPackages.xmobar
   xorg.xmessage
 ]
