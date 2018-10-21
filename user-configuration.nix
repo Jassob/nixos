@@ -38,10 +38,12 @@
         openssh
         pass
         pavucontrol
+        pciutils
         rofi-pass
         steam
         stow
         termite
+        usbutils
         virtmanager
 
         # Haskell development

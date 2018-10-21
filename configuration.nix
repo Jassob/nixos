@@ -80,7 +80,9 @@
     gtk3
     openssh
     openssl
+    pciutils
     unrar
+    usbutils
     utillinux
     vim
     wget
