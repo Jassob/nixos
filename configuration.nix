@@ -85,7 +85,7 @@
     vim
     wget
     zip
-    zsh
+
     # For terminfo we need to install termite as system package
     termite
   ];
