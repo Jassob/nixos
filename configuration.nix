@@ -158,12 +158,23 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
+
     displayManager.lightdm.enable = true;
     desktopManager.gnome3.enable = true;
     windowManager.exwm.enable = true;
-    windowManager.xmonad.enable = true;
+    displayManager.gdm.enable = false;
     desktopManager.default = "none";
     windowManager.default = "xmonad";
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      extraPackages = haskellPackages: [
+        haskellPackages.xmonad-contrib
+        haskellPackages.xmonad-extras
+        haskellPackages.xmonad
+        haskellPackages.xmobar
+      ];
+    };
 
     # Keyboard
     layout = "se";
