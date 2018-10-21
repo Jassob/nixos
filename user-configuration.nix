@@ -54,10 +54,14 @@
         dunst
         imagemagick
         libnotify
+        ncmpcpp
+        pamixer
+        pavucontrol
         rofi
         scrot
         sxhkd
         xorg.xbacklight
+        xorg.xmessage
      ];
     };
   };
