@@ -1,0 +1,17 @@
+#+TITLE: NixOS configuration
+#+AUTHOR: Jassob
+
+* Set up
+
+  1. Clone repository to /etc/nixos/
+  1. Uncomment one of the machine-specific configurations at the top in =configuration.nix=
+  1. Add a password to the user in =user-configuration.nix=
+  1. Run ~nixos-rebuild switch~ to build a new bootable instance of this configuration.
+
+
+* TODO Check out ~programs.*~ in configuration.nix
+
+  =configuration.nix= can set a lot of program settings, for instance
+  global settings for ZSH or Bash that should be set for all
+  users. This way we can set these options declaratively instead of relying
+  on config files.
