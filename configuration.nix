@@ -131,29 +131,10 @@
   services.emacs.install = true;
   services.emacs.defaultEditor = true;
 
-  # Enable Mopidy music daemon
-  services.mopidy = {
-    enable = true;
-    extensionPackages = [ pkgs.mopidy-spotify pkgs.mopidy-mopify ];
-    configuration = ''
-      [local]
-      media_dir = /var/local/music/
-
-      [spotify]
-      username = jassob
-      password = SECRET
-      client_id = SECRET
-      client_secret = SECRET
-
-      [spotify_web]
-      enabled = true
-      client_id = SECRET
-      client_secret = SECRET
-
-      [audio]
-      output = pulsesink server=127.0.0.1
-  '';
-  };
+  # Enable Mopidy music daemon if ./services/mopidy.nix exists
+  services.mopidy = if builtins.pathExists ./services/mopidy.nix
+    then import ./services/mopidy.nix { pkg = pkgs.mopidy-spotify; }
+    else { enable = false; };
 
   # Enable the X11 windowing system.
   services.xserver = {
