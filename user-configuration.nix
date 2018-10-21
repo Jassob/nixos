@@ -31,9 +31,13 @@
         drive
         dropbox-cli
         firefox
+        gitAndTools.gitFull
+        gnupg
         keybase
+        openssh
         pass
         pavucontrol
+        rofi-pass
         steam
         stow
         termite

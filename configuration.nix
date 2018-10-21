@@ -68,14 +68,11 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     acpi
-    bashCompletion
     coreutils
     cryptsetup
     curl
     ghostscript
-    gitAndTools.gitFull
     gtk3
-    gnupg
     openssh
     openssl
     unrar
