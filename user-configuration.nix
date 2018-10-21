@@ -34,6 +34,7 @@
         gitAndTools.gitFull
         gnupg
         keybase
+        light
         openssh
         pass
         pavucontrol
