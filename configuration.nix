@@ -100,13 +100,7 @@
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
-  programs.bash = {
-    enableCompletion = true;
-
-    # fix problem with emacs tramp (https://github.com/NixOS/nixpkgs/issues/3368)
-    promptInit = "PS1=\"# \"";
-
-  };
+  programs.bash.enableCompletion = true;
 
   programs.gnupg.agent = {
     enable = true;
