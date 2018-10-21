@@ -93,11 +93,6 @@
   services.emacs.install = true;
   services.emacs.defaultEditor = true;
 
-  # Enable Mopidy music daemon if ./services/mopidy.nix exists
-  services.mopidy = if builtins.pathExists ./services/mopidy.nix
-    then import ./services/mopidy.nix { pkg = pkgs.mopidy-spotify; }
-    else { enable = false; };
-
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;

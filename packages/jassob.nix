@@ -20,8 +20,10 @@ with pkgs;
   openssh
   pass
   pavucontrol
+  playerctl
   pciutils
   rofi-pass
+  spotify
   sshfs
   steam
   stow
