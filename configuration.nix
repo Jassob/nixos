@@ -113,8 +113,8 @@
   # Enable redshift
   services.redshift = {
     enable = true;
-    brightness.day = "0.8";
-    brightness.night = "0.6";
+    temperature.day = 4000;
+    temperature.night = 3500;
     longitude = "11.98";
     latitude = "57.68";
   };
