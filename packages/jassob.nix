@@ -27,11 +27,14 @@ with pkgs;
   sshfs
   steam
   stow
+  surf
   termite
+  tmux
   unzip
   usbutils
   virtmanager
   vlc
+  xclip
 
   # Haskell development
   haskellPackages.ghc

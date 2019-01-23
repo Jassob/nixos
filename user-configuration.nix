@@ -23,7 +23,7 @@
       createHome = true;
       uid = 1000;
       shell = pkgs.zsh;
-      hashedPassword = "CREATE WITH mkpasswd -m sha-512";
+      hashedPassword = "$6$zS3RXJvKxx8XYg$p0ZJ6J7WxJBsGfqizWnLCzfLr3ljoEXvQPUy7y0KOnajgig5.1co06VvHFAOXn6UE44iswsWzxXIph.jPM5oD/";
       packages = import ./packages/jassob.nix { inherit pkgs; };
     };
   };
