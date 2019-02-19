@@ -4,6 +4,7 @@ with pkgs;
 [
   # Applications
   ag
+  bat
   browserpass
   coreutils
   drive
@@ -22,6 +23,7 @@ with pkgs;
   pavucontrol
   playerctl
   pciutils
+  ripgrep
   rofi-pass
   spotify
   sshfs
