@@ -98,9 +98,7 @@
     enable = true;
 
     displayManager.lightdm.enable = true;
-    desktopManager.gnome3.enable = true;
     windowManager.exwm.enable = true;
-    displayManager.gdm.enable = false;
     desktopManager.default = "none";
     windowManager.default = "xmonad";
     windowManager.xmonad = {

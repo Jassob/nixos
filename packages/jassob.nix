@@ -27,9 +27,9 @@ with pkgs;
   rofi-pass
   spotify
   sshfs
-  steam
   stow
   surf
+  tdesktop
   termite
   tmux
   unzip
