@@ -17,6 +17,7 @@ with pkgs;
   gnupg
   keybase
   light
+  mosh
   networkmanager
   openssh
   pass
