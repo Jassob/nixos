@@ -4,6 +4,7 @@ with pkgs;
 [
   # Applications
   ag
+  alacritty
   bat
   browserpass
   coreutils
@@ -31,7 +32,6 @@ with pkgs;
   stow
   surf
   tdesktop
-  termite
   tmux
   unzip
   usbutils

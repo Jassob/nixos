@@ -19,5 +19,6 @@ with pkgs;
   zip
 
   # For terminfo we need to install termite as system package
+  alacritty
   termite
 ]
