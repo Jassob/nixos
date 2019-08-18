@@ -86,16 +86,6 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Enable redshift
-  services.redshift = {
-    enable = true;
-    temperature.day = 4000;
-    temperature.night = 3500;
-    longitude = "11.98";
-    latitude = "57.68";
-  };
-
   services.cron.enable = true;
 
   # Install emacs
@@ -129,16 +119,6 @@
     libinput.enable = true;
   };
 
-  # TiMidity++ Daemon
-  systemd.user.services.timidity = {
-    description = "TiMidity++ Daemon";
-    after = [ "sound.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.timidity}/bin/timidity -iA -Os";
-      ExecStop = "/run/current-system/sw/bin/pkill timidity";
-    };
-    wantedBy = [ "default.target" ];
-  };
   nixpkgs.config.allowUnfree = true;
 
   virtualisation.docker.enable = true;
