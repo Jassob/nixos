@@ -131,6 +131,8 @@
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
       corefonts # Microsoft free fonts
+      input-fonts
+      iosevka
       inconsolata
       ubuntu_font_family
       dejavu_fonts
