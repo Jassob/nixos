@@ -5,15 +5,11 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./user-configuration.nix
-
-      # Machine configuration, choose one
-      # ./machines/nixjsb.nix  # Macbook
-      # ./machines/nixbook.nix # Zenbook
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./machine-configuration.nix
+  ];
 
   # Supposedly better for SSDs.
   fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];

@@ -4,7 +4,7 @@
 * Set up
 
   1. Clone repository to /etc/nixos/
-  1. Uncomment one of the machine-specific configurations at the top in =configuration.nix=
+  1. Symlink one of the machine-specific configurations to =machine-configuration.nix=.
   1. Add a password to the user in =user-configuration.nix=
   1. Run ~nixos-rebuild switch~ to build a new bootable instance of this configuration.
 
