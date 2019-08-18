@@ -17,18 +17,18 @@
   boot.cleanTmpDir = true;
 
   hardware.pulseaudio = {
-   enable = true;
-   support32Bit = true;
+    enable = true;
+    support32Bit = true;
 
-   # NixOS allows either a lightweight build (default) or full build
-   # of PulseAudio to be installed. Only the full build has
-   # Bluetooth support, so it must be selected here.
-   package = pkgs.pulseaudioFull;
+    # NixOS allows either a lightweight build (default) or full build
+    # of PulseAudio to be installed. Only the full build has
+    # Bluetooth support, so it must be selected here.
+    package = pkgs.pulseaudioFull;
 
-   # Enable TCP streaming
-   tcp.enable = true;
-   tcp.anonymousClients.allowedIpRanges =
-     [ "127.0.0.1" "192.168.1.0/24" ];
+    # Enable TCP streaming
+    tcp.enable = true;
+    tcp.anonymousClients.allowedIpRanges =
+      [ "127.0.0.1" "192.168.1.0/24" ];
   };
 
   # Enables wireless support via network-manager.
