@@ -152,9 +152,21 @@
     ];
   };
 
+  # Define user accounts. This is the only way to add users to the
+  # system since mutableUsers are false.
+  users.mutableUsers = false;
+  users.users.jassob = {
+      description = "Jacob Jonsson";
+      extraGroups = [ "wheel" "docker" "networkmanager" "docker" ];
+      uid = 1000;
+      shell = pkgs.zsh;
+      hashedPassword = "CREATE WITH mkpasswd -m sha-512";
+    };
+  };
+
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "18.03"; # Did you read the comment?
+  system.stateVersion = "19.03"; # Did you read the comment?
 }
