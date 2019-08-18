@@ -90,15 +90,18 @@
 
   services.cron.enable = true;
 
-  services.emacs.install = true;
-  services.emacs.defaultEditor = true;
+  # Install emacs
+  services.emacs = {
+    install = true;
+    defaultEditor = true;
+    package = import ./packages/emacs.nix { inherit pkgs; };
+  };
 
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
 
     displayManager.lightdm.enable = true;
-    windowManager.exwm.enable = true;
     desktopManager.default = "none";
     windowManager.default = "xmonad";
     windowManager.xmonad = {
@@ -115,7 +118,6 @@
     # Keyboard
     layout = "se";
     xkbOptions = "ctrl:nocaps";
-
     libinput.enable = true;
   };
 
@@ -129,29 +131,11 @@
     };
     wantedBy = [ "default.target" ];
   };
+  nixpkgs.config.allowUnfree = true;
 
   virtualisation.docker.enable = true;
   virtualisation.libvirtd.enable = true;
   virtualisation.libvirtd.qemuPackage = pkgs.qemu_kvm;
-
-  nixpkgs.config = {
-    # Enable support for broadcom_sta
-    allowUnfree = true;
-
-    # Overriding packages
-    # TODO: Add my emacs packages
-    packageOverrides = pkgs: {
-      # Define my own Emacs
-      emacs = pkgs.lib.overrideDerivation (pkgs.emacs.override {
-        # Use gtk3 instead of the default gtk2
-        withGTK3 = true;
-
-        # Make sure imagemagick is a dependency because I want to look
-        # at pictures in Emacs
-        imagemagick = pkgs.imagemagickBig;
-      }) (attrs: {});
-    };
-  };
 
   # Fonts
   fonts = {
