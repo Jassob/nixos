@@ -5,7 +5,10 @@
 { pkgs }:
 
 with pkgs; with emacsPackagesNg;
-let emacsWithPackages = (emacsPackagesNgGen emacs).emacsWithPackages;
+
+let emacsWithPackages = (emacsPackagesNgGen (emacs.override {
+    inherit (pkgs) imagemagick;
+})).emacsWithPackages;
 
 # As the EXWM-README points out, XELB should be built from source if
 # EXWM is.
