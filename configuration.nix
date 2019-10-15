@@ -159,12 +159,12 @@
   # system since mutableUsers are false.
   users.mutableUsers = false;
   users.users.jassob = {
-      description = "Jacob Jonsson";
-      extraGroups = [ "wheel" "docker" "networkmanager" "docker" ];
-      uid = 1000;
-      shell = pkgs.zsh;
-      hashedPassword = "CREATE WITH mkpasswd -m sha-512";
-    };
+    description = "Jacob Jonsson";
+    extraGroups = [ "wheel" "docker" "networkmanager" "docker" ];
+    uid = 1000;
+    isNormalUser = true;
+    shell = pkgs.zsh;
+    hashedPassword = "CREATE WITH mkpasswd -m sha-512";
   };
 
   # This value determines the NixOS release with which your system is to be
