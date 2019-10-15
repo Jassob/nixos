@@ -55,6 +55,7 @@ in emacsWithPackages (epkgs:
     auctex-latexmk
     company
     delight
+    diminish
     pinentry
     rainbow-mode
     undo-tree
@@ -64,6 +65,8 @@ in emacsWithPackages (epkgs:
     ag
     cargo
     company-lsp
+    cider
+    clojure-mode
     dante
     dockerfile-mode
     evil
@@ -73,6 +76,7 @@ in emacsWithPackages (epkgs:
     go-mode
     gotest
     guide-key
+    guru-mode
     gruvbox-theme
     haskell-mode
     hl-todo
@@ -86,6 +90,7 @@ in emacsWithPackages (epkgs:
     org-gcal
     paredit
     password-store
+    pkgs.autoconf
     pkgs.mu
     pkgs.notmuch
     projectile
