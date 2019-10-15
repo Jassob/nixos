@@ -46,6 +46,16 @@
     '';
   };
 
+  # Source $HOME/.profile upon login (this is not done automatically by graphical sessions)
+  environment.etc."profile.local".text =
+    ''
+    # /etc/profile.local: DO NOT EDIT - this file has been generated automatically.
+
+    if test -f "$HOME/.profile"; then
+       . "$HOME/.profile"
+    fi
+    '';
+
   # Select internationalisation properties.
   i18n = {
     consoleFont = "term-32n";
