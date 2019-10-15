@@ -98,6 +98,9 @@
   services.printing.enable = true;
   services.cron.enable = true;
 
+  # Enable Flatpak
+  services.flatpak.enable = true;
+
   # Install emacs
   services.emacs = {
     install = true;
