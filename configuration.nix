@@ -132,6 +132,7 @@
     libinput.enable = true;
   };
 
+  nix.trustedUsers = [ "root" "jassob" ];
   nixpkgs.config.allowUnfree = true;
 
   virtualisation.docker.enable = true;
