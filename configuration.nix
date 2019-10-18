@@ -160,7 +160,7 @@
   users.mutableUsers = false;
   users.users.jassob = {
     description = "Jacob Jonsson";
-    extraGroups = [ "wheel" "docker" "networkmanager" "docker" ];
+    extraGroups = [ "wheel" "docker" "networkmanager" ];
     uid = 1000;
     isNormalUser = true;
     shell = pkgs.zsh;
