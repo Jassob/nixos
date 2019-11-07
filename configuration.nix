@@ -102,7 +102,7 @@
   services.cron.enable = true;
 
   # Enable Flatpak
-  services.flatpak.enable = false;
+  services.flatpak.enable = true;
 
   # Restrict journald size
   services.journald.extraConfig = "MaxFileSec=1week";
@@ -161,6 +161,12 @@
       fira-code-symbols
       hasklig
     ];
+  };
+
+  # Enable XDG Portal integration and use GTK portal
+  xdg = {
+    portal.enable = true;
+    gtkUsePortal = true;
   };
 
   # Define user accounts. This is the only way to add users to the
