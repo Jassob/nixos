@@ -101,6 +101,9 @@
   # Enable Flatpak
   services.flatpak.enable = true;
 
+  # Restrict journald size
+  services.journald.extraConfig = "MaxFileSec=1week";
+
   # Install emacs
   services.emacs = {
     install = true;
