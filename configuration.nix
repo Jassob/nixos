@@ -38,6 +38,9 @@
     "1.0.0.1"
   ];
 
+  # Enable VLC to communicate with Chromecast
+  networking.firewall.allowedTCPPorts = [ 8010 ];
+
   # Generate an immutable /etc/resolv.conf from the nameserver settings above
   environment.etc."resolv.conf" = with lib; with pkgs; {
     source = writeText "resolv.conf" ''
@@ -99,7 +102,7 @@
   services.cron.enable = true;
 
   # Enable Flatpak
-  services.flatpak.enable = true;
+  services.flatpak.enable = false;
 
   # Restrict journald size
   services.journald.extraConfig = "MaxFileSec=1week";
@@ -146,6 +149,7 @@
   fonts = {
     enableFontDir = true;
     enableGhostscriptFonts = true;
+    enableDefaultFonts = true;
     fonts = with pkgs; [
       corefonts # Microsoft free fonts
       input-fonts
@@ -175,5 +179,5 @@
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "19.03"; # Did you read the comment?
+  system.stateVersion = "19.09"; # Did you read the comment?
 }

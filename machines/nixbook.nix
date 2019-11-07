@@ -21,11 +21,16 @@
     }
   ];
 
+  # Enable accelerated video playback
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
+
   hardware = {
     bluetooth.enable = true;
     cpu.intel.updateMicrocode = true;
 
-    opengl.extraPackages = [ pkgs.vaapiIntel ];
+    opengl.extraPackages = [ pkgs.vaapiIntel pkgs.intel-media-driver ];
     opengl.driSupport32Bit = true;
    };
 
