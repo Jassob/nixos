@@ -62,9 +62,12 @@ in emacsWithPackages (epkgs:
   ]) ++
   # MELPA packages
   (with epkgs.melpaPackages; [
+    ace-window
     ag
+    attrap
     cargo
     company-lsp
+    company-auctex
     cider
     clojure-mode
     dante
@@ -81,6 +84,7 @@ in emacsWithPackages (epkgs:
     haskell-mode
     hl-todo
     jq-mode
+    lsp-haskell
     lsp-mode
     lsp-ui
     magit
@@ -95,10 +99,12 @@ in emacsWithPackages (epkgs:
     pkgs.notmuch
     projectile
     rainbow-delimiters
+    ripgrep
     rust-mode
     smart-mode-line
     smartparens
     smex
+    sml-mode
     toml-mode
     undo-tree
     use-package
