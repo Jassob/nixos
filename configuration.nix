@@ -60,11 +60,9 @@
     '';
 
   # Select internationalisation properties.
-  i18n = {
-    consoleFont = "term-32n";
-    consoleKeyMap = "sv-latin1";
-    defaultLocale = "en_US.UTF-8";
-  };
+  console.font = "term-32n";
+  console.keyMap = "sv-latin1";
+  i18n.defaultLocale = "en_US.UTF-8";
 
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
@@ -119,8 +117,7 @@
     enable = true;
 
     displayManager.lightdm.enable = true;
-    desktopManager.default = "none";
-    windowManager.default = "xmonad";
+    displayManager.defaultSession = "none+xmonad";
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
@@ -164,10 +161,7 @@
   };
 
   # Enable XDG Portal integration and use GTK portal
-  xdg = {
-    portal.enable = true;
-    gtkUsePortal = true;
-  };
+  xdg.portal.enable = true;
 
   # Define user accounts. This is the only way to add users to the
   # system since mutableUsers are false.

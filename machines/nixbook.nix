@@ -12,14 +12,13 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Register our boot device
-  boot.initrd.luks.devices = [
-    {
-      name = "root";
+  boot.initrd.luks.devices = {
+    root = {
       device = "/dev/disk/by-uuid/c044de00-e58b-49e8-8a06-47fdf6ec439b";
       preLVM = true;
       allowDiscards = true;
-    }
-  ];
+    };
+  };
 
   # Enable accelerated video playback
   nixpkgs.config.packageOverrides = pkgs: {
