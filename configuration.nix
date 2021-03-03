@@ -24,6 +24,7 @@
     # of PulseAudio to be installed. Only the full build has
     # Bluetooth support, so it must be selected here.
     package = pkgs.pulseaudioFull;
+    extraModules = [ pkgs.pulseaudio-modules-bt ];
 
     # Enable TCP streaming
     tcp.enable = true;
