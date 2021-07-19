@@ -104,12 +104,6 @@
   services.openssh.forwardX11 = true;
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  # Install emacs
-  services.emacs = {
-    install = true;
-    defaultEditor = true;
-    package = import ./packages/emacs.nix { inherit pkgs; };
-  };
   services.upower.enable = true;
   systemd.services.upower.enable = true;
 
