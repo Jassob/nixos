@@ -95,6 +95,8 @@
   };
   # Enable Flatpak
   services.flatpak.enable = true;
+  # Enable Windows network shares
+  services.gvfs.enable = true;
   # Restrict journald size
   services.journald.extraConfig = "SystemMaxUse=100M";
   # Enable the OpenSSH daemon.
