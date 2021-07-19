@@ -116,20 +116,8 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-
+    desktopManager.gnome3.enable = true;
     displayManager.lightdm.enable = true;
-    displayManager.defaultSession = "none+xmonad";
-    windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
-      extraPackages = haskellPackages: [
-        haskellPackages.xmonad-contrib
-        haskellPackages.xmonad-extras
-        haskellPackages.xmonad
-        haskellPackages.xmobar
-      ];
-    };
-
     # Keyboard
     layout = "se";
     xkbOptions = "ctrl:nocaps";
@@ -148,17 +136,6 @@
     enableFontDir = true;
     enableGhostscriptFonts = true;
     enableDefaultFonts = true;
-    fonts = with pkgs; [
-      corefonts # Microsoft free fonts
-      input-fonts
-      iosevka
-      inconsolata
-      ubuntu_font_family
-      dejavu_fonts
-      fira-code
-      fira-code-symbols
-      hasklig
-    ];
   };
 
   # Enable XDG Portal integration and use GTK portal
