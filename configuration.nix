@@ -77,44 +77,39 @@
     powertop.enable = true;
   };
 
-  services.upower.enable = true;
-  systemd.services.upower.enable = true;
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.bash.enableCompletion = true;
-  programs.light.enable = true;
-
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
   };
-
+  programs.light.enable = true;
   programs.ssh.forwardX11 = true;
 
+  services.cron.enable = true;
+  # Kill memory early
+  services.earlyoom = {
+    enable = true;
+    freeSwapThreshold = 90; # Don't allow swapping almost at all
+  };
+  # Enable Flatpak
+  services.flatpak.enable = true;
+  # Restrict journald size
+  services.journald.extraConfig = "SystemMaxUse=100M";
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.forwardX11 = true;
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  services.cron.enable = true;
-
-  # Enable Flatpak
-  services.flatpak.enable = true;
-
-  # Restrict journald size
-  services.journald.extraConfig = "MaxFileSec=1week";
-
   # Install emacs
   services.emacs = {
     install = true;
     defaultEditor = true;
     package = import ./packages/emacs.nix { inherit pkgs; };
   };
-
-  # Kill memory early
-  services.earlyoom.enable = true;
+  services.upower.enable = true;
+  systemd.services.upower.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver = {
