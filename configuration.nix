@@ -110,7 +110,7 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    desktopManager.gnome3.enable = true;
+    desktopManager.gnome.enable = true;
     displayManager.lightdm.enable = true;
     # Keyboard
     layout = "se";
@@ -127,7 +127,7 @@
 
   # Fonts
   fonts = {
-    enableFontDir = true;
+    fontDir.enable = true;
     enableGhostscriptFonts = true;
     enableDefaultFonts = true;
   };
