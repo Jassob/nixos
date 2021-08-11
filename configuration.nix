@@ -143,7 +143,7 @@
     extraGroups = [ "wheel" "docker" "networkmanager" "video" ];
     uid = 1000;
     isNormalUser = true;
-    shell = pkgs.zsh;
+    shell = pkgs.bash;
     hashedPassword = "CREATE WITH mkpasswd -m sha-512";
   };
 
