@@ -87,6 +87,9 @@
   services = {
     gnome.gnome-browser-connector.enable = true;
 
+    # Hibernate after closing lid
+    logind.lidSwitch = "hibernate";
+
     power-profiles-daemon.enable = false; # Conflicts with tlp
 
     tlp.enable = true;
