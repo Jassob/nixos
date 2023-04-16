@@ -40,6 +40,7 @@
       unzip
       usbutils
       vlc
+      wally-cli
       xclip
       zathura
       zoom-us

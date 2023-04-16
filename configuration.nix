@@ -32,6 +32,7 @@
 
   boot.cleanTmpDir = true;
 
+  hardware.keyboard.zsa.enable = true;
   hardware.pulseaudio.enable = false;
 
   # Use the systemd-boot EFI boot loader.
