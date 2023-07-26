@@ -397,7 +397,10 @@
 
     rofi = {
       enable = true;
-      pass.enable = true;
+      pass = {
+        enable = true;
+        extraConfig = "help_color=\"#FA6607\"";
+      };
       theme = "gruvbox-dark";
       package = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
     };
@@ -500,6 +503,9 @@
       enable = true;
       postExec = "${pkgs.mu}/bin/mu index";
     };
+
+    # X11 composition
+    picom.enable = true;
 
     # Enable redshift
     redshift = {
