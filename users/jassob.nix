@@ -476,8 +476,54 @@
   };
 
   services = {
-
-    dunst.enable = true;
+    dunst = {
+      enable = true;
+      settings = {
+        global = {
+          font = "Hasklig 12";
+          # allow Pango markup
+          markup = "full";
+          # slight transparency if composer is run
+          transparency = 5;
+          # don't timeout notifications if idle for more than 2 min
+          idle_threshold = 120;
+          # show notifications on monitor with keyboard focus
+          follow = "keyboard";
+          dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst:";
+          browser = "${pkgs.firefox}/bin/firefox";
+          # Keyboard shortcuts
+          close = "ctrl+space";
+          close_all = "ctrl+shift+space";
+          history = "ctrl+section";
+          context = "ctrl+shift+period";
+        };
+        # Urgencies, colors taken from
+        # https://github.com/lighthaus-theme/dunst
+        urgency_low = {
+          frame_color = "#1D918B";
+          foreground = "#FFEE79";
+          background = "#18191E";
+          timeout = 5;
+        };
+        urgency_normal = {
+          frame_color = "#D16BB7";
+          foreground = "#FFEE79";
+          background = "#18191E";
+          timeout = 10;
+        };
+        urgency_critical = {
+          frame_color = "#FC2929";
+          foreground = "#FFFF00";
+          background = "#18191E";
+          timeout = 0;
+        };
+        # Custom rules
+        disturb = {
+          summary = "*dunst...*";
+          urgency = "low";
+        };
+      };
+    };
 
     emacs = {
       enable = true;
