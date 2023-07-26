@@ -193,6 +193,20 @@
         Expunge Both
         SyncState *
 
+        Channel personal-khp
+        Far :personal-remote:"reading/khp"
+        Near :personal-local:"khp"
+        Create Near
+        Expunge Both
+        SyncState *
+
+        Channel personal-nyteknik
+        Far :personal-remote:"reading/ny-teknik"
+        Near :personal-local:"ny-teknik"
+        Create Near
+        Expunge Both
+        SyncState *
+
         Channel personal-trash
         Far :personal-remote:"[Gmail]/Trash"
         Near :personal-local:"trash"
@@ -207,6 +221,8 @@
         Channel personal-sent
         Channel personal-starred
         Channel personal-trash
+        Channel personal-khp
+        Channel personal-ny-teknik
       '';
     };
 
