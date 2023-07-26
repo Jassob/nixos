@@ -312,7 +312,7 @@
       enable = true;
       package = (pkgs.emacsWithPackagesFromUsePackage {
         config = "~/.emacs";
-        package = pkgs.emacsPgtk;
+        package = pkgs.emacs28NativeComp;
         extraEmacsPackages = epkgs: [ epkgs.use-package ];
       });
     };
