@@ -17,7 +17,7 @@
     config = {
       allowUnfree = true;
       input-fonts.acceptLicense = true;
-      permittedInsecurePackages = [ "electron-13.6.9" ];
+      permittedInsecurePackages = [ "electron-20.3.11" ];
     };
     overlays = [
       (import (builtins.fetchTarball {
