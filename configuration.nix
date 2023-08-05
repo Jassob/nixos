@@ -95,7 +95,6 @@
     logind.lidSwitch = "hibernate";
 
     power-profiles-daemon.enable = false; # Conflicts with tlp
-
     tlp.enable = true;
 
     pipewire = {
@@ -116,7 +115,7 @@
       # Enable touchpad support (enabled default in most desktopManager).
       libinput.enable = true;
 
-      # Enable the GNOME Desktop Environment.
+      # Enable GDM and set default session to XMonad.
       displayManager = {
         defaultSession = "none+xmonad";
         gdm.enable = true;
