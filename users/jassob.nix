@@ -136,6 +136,8 @@
         # Bluetooth
         alias sony-connect="${pkgs.bluez}/bin/bluetoothctl connect 38:18:4C:D3:1A:20"
         alias sony-disconnect="${pkgs.bluez}/bin/bluetoothctl disconnect 38:18:4C:D3:1A:20"
+        alias jabra-connect="${pkgs.bluez}/bin/bluetoothctl connect 08:C8:C2:7D:C3:02"
+        alias jabra-disconnect="${pkgs.bluez}/bin/bluetoothctl disconnect 08:C8:C2:7D:C3:02"
         # Emacs
         alias emproj='emacs --eval "(setq server-name \"$(basename $PWD)\")" --funcall server-start'
         alias e='emacsclient -nw'
