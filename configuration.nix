@@ -18,12 +18,12 @@
     config = {
       allowUnfree = true;
       input-fonts.acceptLicense = true;
-      permittedInsecurePackages = [ "electron-20.3.11" ];
+      permittedInsecurePackages = [ "electron-27.3.11" ];
     };
     overlays = [
       (import (builtins.fetchTarball {
-        url = https://github.com/nix-community/emacs-overlay/archive/1e4763dd90ad8712b459d1f5e53cbbc047b75dd0.tar.gz;
-        sha256 = "1ll47qygjsrcyv3a9pv7msvzyqpkhhh4q7kfyinwqhh7yyfan7sf";
+        # Fetched 2024-11-15
+        url = "https://github.com/nix-community/emacs-overlay/archive/f6c94b95f529cfbd29848c12816111a2471a5293.tar.gz";
       }))
     ];
   };
@@ -31,22 +31,55 @@
   # Supposedly better for SSDs.
   fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
 
-  boot.cleanTmpDir = true;
+  boot = {
+    tmp.cleanOnBoot = true;
 
-  hardware.keyboard.zsa.enable = true;
-  hardware.pulseaudio.enable = false;
+    # Disable NixOS containers, conflicts with linux containers.
+    enableContainers = false;
 
-  # Disable NixOS containers, conflicts with linux containers.
-  boot.enableContainers = false;
+    # Use the systemd-boot EFI boot loader.
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+  };
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # Fonts
+  environment.systemPackages = with pkgs; [
+    corefonts # Microsoft free fonts
+    dejavu_fonts
+    fira-code
+    fira-code-symbols
+    hasklig
+    inconsolata
+    input-fonts
+    iosevka
+    ubuntu_font_family
+    xits-math
+    (nerdfonts.override {
+      fonts = [
+        "Iosevka"
+        "FiraCode"
+        "Inconsolata"
+      ];
+    })
+  ];
 
-  # Bluetooth
-  hardware.bluetooth = {
-    enable = true;
-    settings.General.Enable = "Source,Sink,Media,Socket";
+  hardware = {
+    keyboard.zsa.enable = true;
+    pulseaudio.enable = false;
+
+    bluetooth = {
+      enable = true;
+      settings.General.Enable = "Source,Sink,Media,Socket";
+    };
+
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver # LIBVA_DRIVER_NAME=iHD
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+    };
   };
 
   # Set your time zone.
@@ -61,6 +94,9 @@
     useDHCP = false;
     interfaces.wlp164s0.useDHCP = true;
   };
+
+  # Enable new nix commands and flakes
+  nix.settings.experimental-features = "nix-command flakes";
 
   # Select internationalisation properties.
   console = {
@@ -86,14 +122,40 @@
     slock.enable = true;
     tmux.enable = true;
     wireshark.enable = true;
+    zsh = {
+      enable = true;
+      autosuggestions.enable = true;
+    };
+  };
+
+  security = {
+    # Enable a lightweight `sudo` alternative
+    doas.enable = true;
+
+    # Enable Yubikey for login and sudo access
+    pam.yubico = {
+      enable = true;
+      mode = "challenge-response";
+      id = "30084239"; # personal yubikey
+    };
   };
 
   # List services that you want to enable:
   services = {
+    blueman.enable = true;
+
+    displayManager.defaultSession = "none+xmonad";
+
     gnome.gnome-browser-connector.enable = true;
+
+    # Enable touchpad support (enabled default in most desktopManager).
+    libinput.enable = true;
 
     # Hibernate after closing lid
     logind.lidSwitch = "hibernate";
+
+    # Enable smart card reader
+    pcscd.enable = true;
 
     power-profiles-daemon.enable = false; # Conflicts with tlp
     tlp.enable = true;
@@ -110,16 +172,19 @@
       enable = true;
 
       # Configure keymap
-      layout = "se";
-      xkbOptions = "ctrl:nocaps";
-
-      # Enable touchpad support (enabled default in most desktopManager).
-      libinput.enable = true;
+      xkb = {
+         layout = "se";
+         options = "ctrl:nocaps";
+      };
 
       # Enable GDM and set default session to XMonad.
       displayManager = {
-        defaultSession = "none+xmonad";
         gdm.enable = true;
+        importedVariables = [
+          "XDG_SESSION_TYPE"
+          "XDG_CURRENT_DESKTOP"
+          "XDG_SESSION_DESKTOP"
+        ];
       };
       desktopManager.gnome.enable = true;
       windowManager.xmonad.enable = true;
@@ -148,6 +213,8 @@
     shell = pkgs.zsh;
     hashedPassword = "$6$mAXxVn19aK5zrREl$X4n6J.9UtRzQy3RgbSE4O372x48NItjVJea0H2fiTviIpHQmbBU9SGFrGOpxHDMLhPANuVncZDSVUmryUcy4e.";
   };
+
+  virtualisation.docker.enable = true;
 
   home-manager = {
     useGlobalPkgs = true;

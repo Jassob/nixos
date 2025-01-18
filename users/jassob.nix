@@ -43,16 +43,6 @@
       wally-cli
       xclip
       zathura
-      zoom-us
-
-      # Haskell development
-      haskellPackages.ghc
-      haskellPackages.hlint
-      haskellPackages.cabal-install
-      haskellPackages.cabal2nix
-      haskellPackages.stack
-      haskell-language-server
-      haskellPackages.brittany
 
       # Rust development
       rustup
@@ -65,45 +55,25 @@
 
       # Appearance
       adapta-gtk-theme
-      gnome3.adwaita-icon-theme
+      adwaita-icon-theme
       gnomeExtensions.ddterm
       gnomeExtensions.caffeine
       gnomeExtensions.run-or-raise
 
       # For my XMonad setup
-      blueman
-      compton
       feh
       i3lock
       imagemagick
       libnotify
       networkmanagerapplet
       pavucontrol
+      picom
       pulsemixer
       scrot
       sxhkd
       trayer
       haskellPackages.xmobar
       xorg.xmessage
-
-      # Fonts
-      corefonts # Microsoft free fonts
-      dejavu_fonts
-      fira-code
-      fira-code-symbols
-      hasklig
-      inconsolata
-      input-fonts
-      iosevka
-      ubuntu_font_family
-      xits-math
-      (nerdfonts.override {
-        fonts = [
-          "Iosevka"
-          "FiraCode"
-          "Inconsolata"
-        ];
-      })
     ];
 
     file = {
@@ -134,16 +104,15 @@
         alias se="${pkgs.xorg.setxkbmap}/bin/setxkbmap -model emacs2 -option ctrl:nocaps,compose:rwin se"
         alias dv="${pkgs.xorg.setxkbmap}/bin/setxkbmap -variant dvorak -model emacs2 -option ctrl:nocaps,compose:rwin se"
         # Bluetooth
-        alias sony-connect="${pkgs.bluez}/bin/bluetoothctl connect 38:18:4C:D3:1A:20"
-        alias sony-disconnect="${pkgs.bluez}/bin/bluetoothctl disconnect 38:18:4C:D3:1A:20"
-        alias jabra-connect="${pkgs.bluez}/bin/bluetoothctl connect 08:C8:C2:7D:C3:02"
-        alias jabra-disconnect="${pkgs.bluez}/bin/bluetoothctl disconnect 08:C8:C2:7D:C3:02"
+        alias sony-connect="${pkgs.bluez}/bin/bluetoothctl connect AC:80:0A:34:42:E7"
+        alias sony-disconnect="${pkgs.bluez}/bin/bluetoothctl disconnect AC:80:0A:34:42:E7"
+        alias jabra-connect="${pkgs.bluez}/bin/bluetoothctl connect A8:F5:E1:41:C1:B9"
+        alias jabra-disconnect="${pkgs.bluez}/bin/bluetoothctl disconnect A8:F5:E1:41:C1:B9"
         # Emacs
         alias emproj='emacs --eval "(setq server-name \"$(basename $PWD)\")" --funcall server-start'
         alias e='emacsclient -nw'
-        alias dock="~/.configurations/work-from-home.sh"
-        alias dock-ask="~/.configurations/work-from-home.sh -i"
-        alias undock="~/.configurations/laptop.sh"
+        # Script
+        alias s='${pkgs.script-directory}/bin/sd'
       '';
 
       ".mbsyncrc".text = ''
@@ -251,31 +220,32 @@
         window.decorations = "none";
         window.startup_mode = "Maximized";
         font.normal.family = "Iosevka Nerd Font";
-        draw_bold_text_with_bright_colors = true;
-        colors.primary = { background = "#1d2021"; foreground = "#ebdbbd"; };
-        colors.normal = {
-          black = "#000000";
-          red = "#d54e53";
-          green = "#b9ca4a";
-          yellow = "#e6c547";
-          blue = "#7aa6da";
-          magenta = "#c397d8";
-          cyan = "#70c0ba";
-          white = "#eaeaea";
+        colors = {
+          draw_bold_text_with_bright_colors = true;
+          primary = { background = "#1d2021"; foreground = "#ebdbbd"; };
+          normal = {
+            black = "#000000";
+            red = "#d54e53";
+            green = "#b9ca4a";
+            yellow = "#e6c547";
+            blue = "#7aa6da";
+            magenta = "#c397d8";
+            cyan = "#70c0ba";
+            white = "#eaeaea";
+          };
+          bright = {
+            black = "#666666";
+            red = "#ff3334";
+            green = "#9ec400";
+            yellow = "#e7c547";
+            blue = "#7aa6da";
+            magenta = "#b77ee0";
+            cyan = "#54ced6";
+            white = "#ffffff";
+          };
         };
-        colors.bright = {
-          black = "#666666";
-          red = "#ff3334";
-          green = "#9ec400";
-          yellow = "#e7c547";
-          blue = "#7aa6da";
-          magenta = "#b77ee0";
-          cyan = "#54ced6";
-          white = "#ffffff";
-        };
-        url.modifiers = "Control";
         selection.save_to_clipboard = true;
-        key_bindings = [
+        keyboard.bindings = [
           { key = "Key0"; mods = "Control"; action = "ResetFontSize"; }
           { key = "Plus"; mods = "Control"; action = "IncreaseFontSize"; }
           { key = "Minus"; mods = "Control"; action = "DecreaseFontSize"; }
@@ -316,6 +286,8 @@
         PROMPT_DIRTRIM = "2";
         # Update shell history on every command
         PROMPT_COMMAND = "history -a;$PROMPT_COMMAND";
+        # Override default scripts directory
+        SD_ROOT = "/home/jassob/scripts";
       };
     };
 
@@ -328,17 +300,11 @@
 
     emacs = {
       enable = true;
-      package = (pkgs.emacsWithPackagesFromUsePackage {
-        config = "~/.emacs";
-        package = pkgs.emacs28NativeComp;
-        extraEmacsPackages = epkgs: [ epkgs.use-package ];
-      });
+      package = pkgs.emacs-unstable;
+      extraPackages = epkgs: [ epkgs.pdf-tools epkgs.org-pdftools ];
     };
 
-    exa = {
-      enable = true;
-      enableAliases = true;
-    };
+    eza.enable = true;
 
     firefox = {
       enable = true;
@@ -347,8 +313,6 @@
         cfg = {
           # Gnome shell native connector
           enableGnomeExtensions = true;
-          # Browserpass
-          enableBrowserpass = true;
         };
       });
       profiles.jassob = {
@@ -377,8 +341,6 @@
       userName = "Jacob Jonsson";
       userEmail = "jacob.t.jonsson@gmail.com";
 
-      delta.enable = true;
-
       signing.key = "D822DFB8049AF39ADF43EA0A7E30B9B047F7202E";
       signing.signByDefault = true;
 
@@ -392,9 +354,11 @@
         github.user = "Jassob";
         pull.rebase = true;
         rebase.autosquash = true;
+        rebase.updateRefs = true;
         rerere.enabled = true;
 
         url."ssh://git@github.com:einride/".insteadOf = "https://github.com/einride/";
+        url."ssh://git@github.com:einride-autonomous/".insteadOf = "https://github.com/einride-autonomous/";
       };
     };
 
@@ -423,11 +387,17 @@
       package = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
     };
 
+    script-directory = {
+      enable = true;
+      settings = {
+        SD_ROOT = "/home/jassob/scripts";
+      };
+    };
+
     zsh = {
       enable = true;
       defaultKeymap = "emacs";
       enableCompletion = true;
-      enableAutosuggestions = true;
       history = {
         path = "/home/jassob/.shell/history";
         ignoreDups = true;
@@ -439,6 +409,8 @@
         NIX_AUTO_RUN = true;
         # Only show the last two directories in current path
         PROMPT_DIRTRIM = "2";
+        # Override default script directory
+        SD_ROOT = "/home/jassob/scripts";
       };
 
       profileExtra = ''
@@ -489,6 +461,9 @@
 
         # Source .shell/aliases
         . ~/.shell/aliases
+
+        # Setup script-directory zsh completion
+        fpath+="${pkgs.script-directory}/share/zsh/site-functions"
       '';
     };
   };
@@ -547,6 +522,7 @@
       enable = true;
       client.enable = true;
       socketActivation.enable = true;
+      package = pkgs.emacs-unstable;
     };
 
     gpg-agent = {
