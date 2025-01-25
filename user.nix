@@ -247,7 +247,7 @@ in
       programs.browserpass.enable = true;
       programs.browserpass.browsers = [ "chrome" "firefox" ];
       programs.firefox.enable = true;
-      programs.firefox.package = pkgs.firefox;
+      programs.firefox.package = pkgs.unstable.firefox;
       programs.firefox.profiles.jassob.isDefault = true;
 
       # Setup Emacs base package and enable it as a user service.
