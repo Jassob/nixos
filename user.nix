@@ -46,11 +46,8 @@ in
     useUserPackages = true;
     users.jassob = {
       home.packages = with pkgs; [
-        # Applications
         bat
-        drive
         entr
-        fasd
         google-chrome
         graphviz
         ispell
