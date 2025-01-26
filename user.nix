@@ -1,4 +1,4 @@
-{ config, pkgs, home-manager, ... }:
+{ config, pkgs, home-manager, zen-browser, ... }:
 
 let
   username = "jassob";
@@ -70,6 +70,7 @@ in
         vlc
         wally-cli
         xclip
+        zen-browser.packages."${system}".default
 
         # Rust development
         rustup
