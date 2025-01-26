@@ -29,7 +29,6 @@
 
       nixosConfigurations.jassob-XPS-13 = nixpkgs.lib.nixosSystem {
         specialArgs = inputs;
-        system = system;
         modules = [
           # overlays
           ({ config, pkgs, ... }: {
