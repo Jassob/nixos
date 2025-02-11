@@ -116,54 +116,55 @@
   };
 
   # List services that you want to enable:
-  services = {
-    blueman.enable = true;
+  services.blueman.enable = true;
 
-    displayManager.defaultSession = "none+xmonad";
+  services.displayManager.defaultSession = "none+xmonad";
 
-    gnome.gnome-browser-connector.enable = true;
+  services.gnome.gnome-browser-connector.enable = true;
 
-    # Enable touchpad support (enabled default in most desktopManager).
-    libinput.enable = true;
+  # Enable touchpad support (enabled default in most desktopManager).
+  services.libinput.enable = true;
 
-    # Hibernate after closing lid
-    logind.lidSwitch = "hibernate";
+  # Hibernate after closing lid
+  services.logind.lidSwitch = "hibernate";
 
-    # Enable smart card reader
-    pcscd.enable = true;
+  # Enable smart card reader
+  services.pcscd.enable = true;
 
-    power-profiles-daemon.enable = false; # Conflicts with tlp
-    tlp.enable = true;
+  services.power-profiles-daemon.enable = false; # Conflicts with tlp
+  services.tlp.enable = true;
 
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
+  # Enable sound with pipewire.
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  # Enable the X11 windowing system.
+  services.xserver = {
+    enable = true;
+
+    # Configure keymap
+    xkb = {
+      layout = "se";
+      model = "emacs";
+      options = "ctrl:nocaps";
     };
 
-    # Enable the X11 windowing system.
-    xserver = {
-      enable = true;
-
-      # Configure keymap
-      xkb = {
-        layout = "se";
-        options = "ctrl:nocaps";
-      };
-
-      # Enable GDM and set default session to XMonad.
-      displayManager = {
-        gdm.enable = true;
-        importedVariables = [
-          "XDG_SESSION_TYPE"
-          "XDG_CURRENT_DESKTOP"
-          "XDG_SESSION_DESKTOP"
-        ];
-      };
-      desktopManager.gnome.enable = true;
-      windowManager.xmonad.enable = true;
+    # Enable GDM and set default session to XMonad.
+    displayManager = {
+      gdm.enable = true;
+      importedVariables = [
+        "XDG_SESSION_TYPE"
+        "XDG_CURRENT_DESKTOP"
+        "XDG_SESSION_DESKTOP"
+      ];
     };
+    desktopManager.gnome.enable = true;
+    windowManager.xmonad.enable = true;
   };
 
   users.mutableUsers = false;
