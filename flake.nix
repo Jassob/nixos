@@ -37,9 +37,6 @@
             nixpkgs.overlays = [ overlay-unstable overlay-emacs ];
           })
           {
-            # Enable new nix commands and flakes
-            nix.settings.experimental-features = "nix-command flakes";
-            nixpkgs.config.allowUnfree = true;
             nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
 
             networking.hostName = "jassob-XPS-13";

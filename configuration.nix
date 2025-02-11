@@ -45,7 +45,10 @@
     };
   };
 
+  # Enable new nix commands and flakes
+  nix.settings.experimental-features = "nix-command flakes";
   nix.settings.trusted-users = [ "root" ];
+  nixpkgs.config.allowUnfree = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
