@@ -10,8 +10,13 @@ let
     if ! pgrep -x "gpg-agent" > /dev/null; then
       ${pkgs.gnupg}/bin/gpgconf --launch gpg-agent
     fi
-    export PATH=~/.local/bin:$PATH
     export SSH_AUTH_SOCK=$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)
+
+    # Add locally installed binaries to PATH
+    [ -d $HOME/.local/bin ] && PATH=$HOME/.local/bin:$PATH
+    [ -d $HOME/.cargo/bin ] && PATH=$HOME/.cargo/bin:$PATH
+    [ -d $HOME/go/bin ] && PATH=$HOME/go/bin:$PATH
+
     if [ -f "~/.xsessionrc" ]; then . ~/.xsessionrc; fi
   '';
 
