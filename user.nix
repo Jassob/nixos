@@ -227,9 +227,9 @@ in
           rebase.updateRefs = true;
           rerere.enabled = true;
 
-          url."ssh://git@github.com:einride/".insteadOf =
+          url."ssh://git@github.com/einride/".insteadOf =
             "https://github.com/einride/";
-          url."ssh://git@github.com:einride-autonomous/".insteadOf =
+          url."ssh://git@github.com/einride-autonomous/".insteadOf =
             "https://github.com/einride-autonomous/";
         };
       };
