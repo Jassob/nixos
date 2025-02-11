@@ -12,7 +12,7 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, emacs-overlay, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, emacs-overlay, nixos-hardware, ... }@inputs:
     let
       pkgs = (import nixpkgs { inherit system; }).pkgs;
       system = "x86_64-linux";
@@ -36,14 +36,25 @@
           ({ config, pkgs, ... }: {
             nixpkgs.overlays = [ overlay-unstable overlay-emacs ];
           })
-          { networking.hostName = "jassob-XPS-13"; }
           {
             # Enable new nix commands and flakes
             nix.settings.experimental-features = "nix-command flakes";
             nixpkgs.config.allowUnfree = true;
             nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
+
+            networking.hostName = "jassob-XPS-13";
+
+            # This value determines the NixOS release from which the default
+            # settings for stateful data, like file locations and database versions
+            # on your system were taken. It‘s perfectly fine and recommended to leave
+            # this value at the release version of the first install of this system.
+            # Before changing this value read the documentation for this option
+            # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+            system.stateVersion = "21.11"; # Did you read the comment?
           }
           ./configuration.nix
+          ./hardware-configurations/xps-13.nix
+          nixos-hardware.nixosModules.dell-xps-13-9300
         ];
       };
     };
