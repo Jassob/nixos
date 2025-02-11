@@ -37,7 +37,6 @@
             nixpkgs.overlays = [ overlay-unstable overlay-emacs ];
           })
           {
-            nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
 
             networking.hostName = "jassob-XPS-13";
 

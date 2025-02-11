@@ -46,6 +46,8 @@ in
     hashedPasswordFile = "/home/jassob/src/nixos-config/password.nix";
   };
 
+  nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
