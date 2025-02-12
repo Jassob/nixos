@@ -21,101 +21,99 @@
       xorg.xmessage
     ];
 
-    services = {
-      dunst = {
-        enable = true;
-        settings = {
-          global = {
-            font = "Hasklig 12";
-            # allow Pango markup
-            markup = "full";
-            # slight transparency if composer is run
-            transparency = 5;
-            # don't timeout notifications if idle for more than 2 min
-            idle_threshold = 120;
-            # show notifications on monitor with keyboard focus
-            follow = "keyboard";
-            dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst:";
-            browser = "${pkgs.firefox}/bin/firefox";
-            # Keyboard shortcuts
-            close = "ctrl+space";
-            close_all = "ctrl+shift+space";
-            history = "ctrl+section";
-            context = "ctrl+shift+period";
-          };
-          # Urgencies, colors taken from
-          # https://github.com/lighthaus-theme/dunst
-          urgency_low = {
-            frame_color = "#1D918B";
-            foreground = "#FFEE79";
-            background = "#18191E";
-            timeout = 5;
-          };
-          urgency_normal = {
-            frame_color = "#D16BB7";
-            foreground = "#FFEE79";
-            background = "#18191E";
-            timeout = 10;
-          };
-          urgency_critical = {
-            frame_color = "#FC2929";
-            foreground = "#FFFF00";
-            background = "#18191E";
-            timeout = 0;
-          };
-          # Custom rules
-          disturb = {
-            summary = "*dunst...*";
-            urgency = "low";
-          };
+    services.dunst = {
+      enable = true;
+      settings = {
+        global = {
+          font = "Hasklig 12";
+          # allow Pango markup
+          markup = "full";
+          # slight transparency if composer is run
+          transparency = 5;
+          # don't timeout notifications if idle for more than 2 min
+          idle_threshold = 120;
+          # show notifications on monitor with keyboard focus
+          follow = "keyboard";
+          dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst:";
+          browser = "${pkgs.firefox}/bin/firefox";
+          # Keyboard shortcuts
+          close = "ctrl+space";
+          close_all = "ctrl+shift+space";
+          history = "ctrl+section";
+          context = "ctrl+shift+period";
+        };
+        # Urgencies, colors taken from
+        # https://github.com/lighthaus-theme/dunst
+        urgency_low = {
+          frame_color = "#1D918B";
+          foreground = "#FFEE79";
+          background = "#18191E";
+          timeout = 5;
+        };
+        urgency_normal = {
+          frame_color = "#D16BB7";
+          foreground = "#FFEE79";
+          background = "#18191E";
+          timeout = 10;
+        };
+        urgency_critical = {
+          frame_color = "#FC2929";
+          foreground = "#FFFF00";
+          background = "#18191E";
+          timeout = 0;
+        };
+        # Custom rules
+        disturb = {
+          summary = "*dunst...*";
+          urgency = "low";
         };
       };
+    };
 
-      # X11 composition
-      picom.enable = true;
+    # X11 composition
+    services.picom.enable = true;
 
-      sxhkd = {
-        enable = true;
-        keybindings = {
-          "{XF86AudioLowerVolume, ctrl + F11}" = ''
-            pulsemixer --change-volume -5 && notify-send "Volume: $(pulsemixer --get-volume | cut -d ' ' -f 1)%"'';
+    services.sxhkd = {
+      enable = true;
+      keybindings = {
+        "{XF86AudioLowerVolume, ctrl + F11}" = ''
+          pulsemixer --change-volume -5 && notify-send "Volume: $(pulsemixer --get-volume | cut -d ' ' -f 1)%"'';
 
-          "{XF86AudioRaiseVolume, ctrl + F12}" = ''
-            pulsemixer --change-volume +5 && notify-send "Volume: $(pulsemixer --get-volume | cut -d ' ' -f 1)%"'';
+        "{XF86AudioRaiseVolume, ctrl + F12}" = ''
+          pulsemixer --change-volume +5 && notify-send "Volume: $(pulsemixer --get-volume | cut -d ' ' -f 1)%"'';
 
-          "{XF86AudioMute, ctrl + F10}" = ''
-            pulsemixer --toggle-mute && notify-send "Muted: $(\
-                 if [[ $(pulsemixer --get-mute | cut -d ' ' -f 1) == 0 ]]; \
-                        then echo No; \
-                        else echo Yes; \
-                 fi)"'';
+        "{XF86AudioMute, ctrl + F10}" = ''
+          pulsemixer --toggle-mute && notify-send "Muted: $(\
+               if [[ $(pulsemixer --get-mute | cut -d ' ' -f 1) == 0 ]]; \
+                      then echo No; \
+                      else echo Yes; \
+               fi)"'';
 
-          "{XF86MonBrightnessUp, ctrl + F6}" = ''
-            light -A 5 && notify-send "Brightness: $(light | cut -f 1 -d .)%"'';
+        "{XF86MonBrightnessUp, ctrl + F6}" = ''
+          light -A 5 && notify-send "Brightness: $(light | cut -f 1 -d .)%"'';
 
-          "{XF86MonBrightnessDown, ctrl + F5}" = ''
-            light -U 5 && notify-send "Brightness: $(light | cut -f 1 -d .)%"'';
+        "{XF86MonBrightnessDown, ctrl + F5}" = ''
+          light -U 5 && notify-send "Brightness: $(light | cut -f 1 -d .)%"'';
 
-          "XF86Audio{Pause,Play,Next,Prev}" =
-            "${pkgs.playerctl}/bin/playerctl {pause,play,next,previous}";
-          "XF86KbdBrightness{Up,Down}" =
-            "asus_kbd_backlight {increase,decrease}";
-          "super + x; o" = "${pkgs.rofi}/bin/rofi -show drun";
-          "super + x; f" = ''$HOME/.local/bin/openfile -i "rofi -dmenu"'';
-          "super + p" = "rofi-pass";
-          "super + x ; e ; c" = ''emacsclient -c -e "(org-capture)"'';
-          "super + x; r" = "rofi -show emoji";
-          "super + e" = ''
-            $HOME/dotfiles/jassob/.local/bin/startemacs -i "rofi -dmenu -p Emacs"'';
-          "super + x; l" = "i3lock && sleep 5s; xset dpms force suspend";
-          "super + x; L" = "i3lock && systemctl suspend";
-          "super + x; p" =
-            "${pkgs.scrot}/bin/scrot -u -e 'mv $f ~/pictures/screenshots/'";
-          "super + x; P" =
-            "exec import -window root png:$HOME/pictures/screenshots/screenshot_$(date +%F_%H-%M-%S).png";
-          # make sxhkd reload its configuration files:
-          "super + Escape" = "pkill -USR1 -x sxhkd";
-        };
+        "XF86Audio{Pause,Play,Next,Prev}" =
+          "${pkgs.playerctl}/bin/playerctl {pause,play,next,previous}";
+        "XF86KbdBrightness{Up,Down}" =
+          "asus_kbd_backlight {increase,decrease}";
+        "super + x; o" = "${pkgs.rofi}/bin/rofi -show drun";
+        "super + x; f" = ''$HOME/.local/bin/openfile -i "rofi -dmenu"'';
+        "super + p" = "rofi-pass";
+        "super + x ; e ; c" = ''emacsclient -c -e "(org-capture)"'';
+        "super + x; r" = "rofi -show emoji";
+        "super + e" = ''
+          $HOME/dotfiles/jassob/.local/bin/startemacs -i "rofi -dmenu -p Emacs"'';
+        "super + x; l" = "i3lock && sleep 5s; xset dpms force suspend";
+        "super + x; L" = "i3lock && systemctl suspend";
+        "super + x; p" =
+          "${pkgs.scrot}/bin/scrot -u -e 'mv $f ~/pictures/screenshots/'";
+        "super + x; P" =
+          "exec import -window root png:$HOME/pictures/screenshots/screenshot_$(date +%F_%H-%M-%S).png";
+        # make sxhkd reload its configuration files:
+        "super + Escape" = "pkill -USR1 -x sxhkd";
       };
     };
 
