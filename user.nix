@@ -199,6 +199,14 @@ in
         '';
       };
 
+      programs.direnv.enable = true;
+      programs.direnv.enableBashIntegration = true;
+      programs.direnv.enableZshIntegration = true;
+      programs.direnv.nix-direnv = {
+        enable = true;
+        package = pkgs.nix-direnv;
+      };
+
       programs.command-not-found.enable = true;
       programs.eza.enable = true;
 
