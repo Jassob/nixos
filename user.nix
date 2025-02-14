@@ -85,16 +85,12 @@ in
         nodePackages.typescript-language-server
         nodePackages.prettier
 
-        # Appearance
-        adapta-gtk-theme
-        adwaita-icon-theme
         gnomeExtensions.ddterm
         gnomeExtensions.caffeine
         gnomeExtensions.run-or-raise
       ];
 
       home.file = {
-        ".gtkrc-2.0".source = ./files/gtkrc-2.0;
         ".shell/aliases".source = ./files/shell_aliases;
         ".mbsyncrc".source = ./files/mbsyncrc;
       };
