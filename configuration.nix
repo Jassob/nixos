@@ -124,6 +124,7 @@
   services.displayManager.defaultSession = "none+xmonad";
 
   services.gnome.gnome-browser-connector.enable = true;
+  services.gnome.gnome-online-accounts.enable = lib.mkForce false;
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
