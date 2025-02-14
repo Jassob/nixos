@@ -101,8 +101,6 @@ in
         x11.enable = true;
       };
 
-      home.stateVersion = "21.11";
-
       manual.html.enable = true;
       xdg.enable = true;
 

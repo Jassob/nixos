@@ -47,6 +47,7 @@
             # Before changing this value read the documentation for this option
             # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
             system.stateVersion = "21.11"; # Did you read the comment?
+            home-manager.users.jassob.home.stateVersion = "21.11"; # See comment for system.stateVersion
           }
           ./configuration.nix
           ./hardware-configurations/xps-13.nix
