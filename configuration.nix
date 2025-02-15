@@ -128,6 +128,7 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
+  services.libinput.touchpad.disableWhileTyping = true;
 
   # Hibernate after closing lid
   services.logind.lidSwitch = "hibernate";
