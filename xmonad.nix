@@ -143,9 +143,9 @@ in {
           "super + x; l" = "i3lock && sleep 5s; xset dpms force suspend";
           "super + x; L" = "i3lock && systemctl suspend";
           "super + x; p" =
-            "${pkgs.scrot}/bin/scrot -u -e 'mv $f ~/pictures/screenshots/'";
+            "${pkgs.scrot}/bin/scrot -u -e 'mv $f ~/Pictures/screenshots/'";
           "super + x; P" =
-            "exec import -window root png:$HOME/pictures/screenshots/screenshot_$(date +%F_%H-%M-%S).png";
+            "exec import -window root png:$HOME/Pictures/screenshots/screenshot_$(date +%F_%H-%M-%S).png";
           # make sxhkd reload its configuration files:
           "super + Escape" = "pkill -USR1 -x sxhkd";
         };
