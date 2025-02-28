@@ -18,6 +18,7 @@ in {
     home-manager.users.jassob = {
       home.packages = with pkgs; [
         feh
+        gnome-screenshot
         i3lock
         imagemagick
         libnotify
@@ -26,7 +27,6 @@ in {
         picom
         pulsemixer
         scrot
-        sxhkd
         trayer
         haskellPackages.xmobar
         xorg.xmessage
