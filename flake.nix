@@ -37,8 +37,8 @@
             nixpkgs.overlays = [ overlay-unstable overlay-emacs ];
           })
           {
-
             networking.hostName = "jassob-XPS-13";
+            networking.interfaces.wlp164s0.useDHCP = true;
 
             # This value determines the NixOS release from which the default
             # settings for stateful data, like file locations and database versions

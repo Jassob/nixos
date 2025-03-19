@@ -53,14 +53,6 @@
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
 
-  networking = {
-    # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-    # Per-interface useDHCP will be mandatory in the future, so this generated config
-    # replicates the default behaviour.
-    useDHCP = false;
-    interfaces.wlp164s0.useDHCP = true;
-  };
-
   # Select internationalisation properties.
   console = {
     font = "Lat2-Terminus16";
