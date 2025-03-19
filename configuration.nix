@@ -165,5 +165,6 @@
   };
 
   users.mutableUsers = false;
-  virtualisation.docker.enable = true;
+  virtualisation.podman.enable = true;
+  virtualisation.podman.autoPrune.enable = true;
 }
