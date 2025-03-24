@@ -41,9 +41,6 @@ in
     ];
     uid = 1000;
     shell = pkgs.zsh;
-    # Create password.nix by running `mkpasswd > password.nix`
-    # Then `git update-index --assume-unchanged password.nix`
-    hashedPasswordFile = "/home/jassob/src/nixos-config/password.nix";
   };
 
   nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];

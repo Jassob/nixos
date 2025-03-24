@@ -164,7 +164,6 @@
     windowManager.xmonad.enable = true;
   };
 
-  users.mutableUsers = false;
   virtualisation.podman.enable = true;
   virtualisation.podman.autoPrune.enable = true;
 }
