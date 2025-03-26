@@ -104,9 +104,6 @@ in {
         };
       };
 
-      # X11 composition
-      services.picom.enable = true;
-
       services.sxhkd = {
         enable = true;
         keybindings = {
