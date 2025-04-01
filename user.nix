@@ -27,6 +27,8 @@ let
     PROMPT_DIRTRIM = "2";
     # Override default script directory
     SD_ROOT = "/home/${username}/scripts";
+    # Set EDITOR to emacsclient
+    EDITOR = "${pkgs.emacs}/bin/emacsclient -nw";
   };
 
 in
