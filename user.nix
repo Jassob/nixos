@@ -20,6 +20,15 @@ let
     if [ -f "~/.xsessionrc" ]; then . ~/.xsessionrc; fi
   '';
 
+  sessionVariables = {
+    # Download programs temporarily if missing
+    NIX_AUTO_RUN = true;
+    # Only show the last two directories in current path
+    PROMPT_DIRTRIM = "2";
+    # Override default script directory
+    SD_ROOT = "/home/${username}/scripts";
+  };
+
 in
 {
   imports = [ home-manager.nixosModules.default ./xmonad.nix ];
@@ -112,15 +121,9 @@ in
         enableVteIntegration = true;
         historyControl = [ "ignoredups" "ignorespace" ];
         historyFile = "/home/${username}/.shell/history";
-        sessionVariables = {
-          # Download programs temporarily if missing
-          NIX_AUTO_RUN = true;
-          # Only show the last two directories in current path
-          PROMPT_DIRTRIM = "2";
+        sessionVariables = sessionVariables // {
           # Update shell history on every command
           PROMPT_COMMAND = "history -a;$PROMPT_COMMAND";
-          # Override default scripts directory
-          SD_ROOT = "/home/${username}/scripts";
         };
         profileExtra = shellProfileExtra;
         initExtra = ''
@@ -142,14 +145,7 @@ in
           ignoreDups = true;
           share = true;
         };
-        sessionVariables = {
-          # Download programs temporarily if missing
-          NIX_AUTO_RUN = true;
-          # Only show the last two directories in current path
-          PROMPT_DIRTRIM = "2";
-          # Override default script directory
-          SD_ROOT = "/home/${username}/scripts";
-        };
+        sessionVariables = sessionVariables;
         profileExtra = ''
           ${shellProfileExtra}
           # Add keybindings
