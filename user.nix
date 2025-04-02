@@ -258,6 +258,9 @@ in
       programs.emacs.extraPackages = epkgs: [
         epkgs.pdf-tools
         epkgs.org-pdftools
+        epkgs.tree-sitter-langs
+        epkgs.tree-sitter
+        epkgs.treesit-grammars.with-all-grammars
       ];
       services.emacs.enable = true;
       services.emacs.client.enable = true;
