@@ -5,13 +5,6 @@ let
 
   # Used for both Bash and ZSH
   shellProfileExtra = ''
-    # Setup GPG
-    export GPG_TTY=$(tty)
-    if ! pgrep -x "gpg-agent" > /dev/null; then
-      ${pkgs.gnupg}/bin/gpgconf --launch gpg-agent
-    fi
-    export SSH_AUTH_SOCK=$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)
-
     # Add locally installed binaries to PATH
     [ -d $HOME/.local/bin ] && PATH=$HOME/.local/bin:$PATH
     [ -d $HOME/.cargo/bin ] && PATH=$HOME/.cargo/bin:$PATH
@@ -274,6 +267,7 @@ in
         keyid-format = "0xlong";
       };
       services.gpg-agent.enable = true;
+      services.gpg-agent.enableSshSupport = true;
       services.gpg-agent.pinentryPackage = pkgs.pinentry-qt;
       services.gpg-agent.extraConfig = ''
         allow-emacs-pinentry
