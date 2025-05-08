@@ -274,8 +274,8 @@ in
         keyid-format = "0xlong";
       };
       services.gpg-agent.enable = true;
+      services.gpg-agent.pinentryPackage = pkgs.pinentry-qt;
       services.gpg-agent.extraConfig = ''
-        pinentry-program ${pkgs.pinentry}/bin/pinentry
         allow-emacs-pinentry
         enable-ssh-support
       '';
