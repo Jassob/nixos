@@ -131,8 +131,7 @@ in {
           "XF86KbdBrightness{Up,Down}" =
             "asus_kbd_backlight {increase,decrease}";
           "super + x; o" = "${pkgs.rofi}/bin/rofi -show drun";
-          "super + x; f" = ''$HOME/.local/bin/openfile -i "rofi -dmenu"'';
-          "super + p" = "rofi-pass";
+          "super + p" = "$HOME/scripts/pass/copy-graphical";
           "super + x ; e ; c" = ''emacsclient -c -e "(org-capture)"'';
           "super + x; r" = "rofi -show emoji";
           "super + e" = ''

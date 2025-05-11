@@ -230,9 +230,6 @@ in
       programs.nix-index.enableZshIntegration = false;
 
       programs.rofi.enable = true;
-      programs.rofi.pass.enable = true;
-      programs.rofi.pass.extraConfig = ''
-        help_color="#FA6607"''; # fix rofi-pass "unsure about what to do" message
       programs.rofi.package =
         pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
 
