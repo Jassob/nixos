@@ -214,6 +214,7 @@ in
           github.user = "Jassob";
           pull.rebase = true;
           rebase.autosquash = true;
+          rebase.autostash = true;
           rebase.updateRefs = true;
           rerere.enabled = true;
 
