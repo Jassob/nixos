@@ -74,7 +74,7 @@ myScratchpads =
        (title =? "termpad")
        doFullFloat
   , NS "empad"
-       "~/.local/bin/startemacs -n server"
+       "~/scripts/emacs/open-graphical server"
        (title =? "server")
        doCenterFloat
   , NS "notepad" "logseq --disable-gpu" (className =? "Logseq") doCenterFloat

@@ -134,8 +134,7 @@ in {
           "super + p" = "$HOME/scripts/pass/copy-graphical";
           "super + x ; e ; c" = ''emacsclient -c -e "(org-capture)"'';
           "super + x; r" = "rofi -show emoji";
-          "super + e" = ''
-          $HOME/dotfiles/jassob/.local/bin/startemacs -i "rofi -dmenu -p Emacs"'';
+          "super + e" = "$HOME/scripts/emacs/open-graphical";
           "super + x; l" = "i3lock && sleep 5s; xset dpms force suspend";
           "super + x; L" = "i3lock && systemctl suspend";
           "super + x; p" =
