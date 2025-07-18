@@ -266,7 +266,6 @@ in
       };
       services.gpg-agent.enable = true;
       services.gpg-agent.enableSshSupport = true;
-      services.gpg-agent.pinentryPackage = pkgs.pinentry-qt;
       services.gpg-agent.extraConfig = ''
         allow-emacs-pinentry
         enable-ssh-support
