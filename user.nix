@@ -195,6 +195,11 @@ in
       programs.fzf.enableBashIntegration = true;
       programs.fzf.enableZshIntegration = true;
 
+      programs.z-lua.enable = true;
+      programs.z-lua.enableAliases = true;
+      programs.z-lua.enableBashIntegration = true;
+      programs.z-lua.enableZshIntegration = true;
+
       programs.git = {
         enable = true;
         userName = "Jacob Jonsson";
