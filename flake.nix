@@ -8,8 +8,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
-    # Packages
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, emacs-overlay, nixos-hardware, ... }@inputs:
