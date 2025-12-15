@@ -96,9 +96,10 @@ in
       };
 
       home.pointerCursor = {
-        package = pkgs.vanilla-dmz;
         name = "Vanilla-DMZ";
+        package = pkgs.vanilla-dmz;
         x11.enable = true;
+        gtk.enable = true;
       };
 
       manual.html.enable = true;
