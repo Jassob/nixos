@@ -225,6 +225,9 @@ in
           url."ssh://git@github.com/einride-autonomous/".insteadOf =
             "https://github.com/einride-autonomous/";
         };
+
+        signing.key = "D822DFB8049AF39ADF43EA0A7E30B9B047F7202E";
+        signing.signByDefault = true;
       };
 
       programs.nix-index.enable = true;
