@@ -230,6 +230,15 @@ in
         signing.signByDefault = true;
       };
 
+      programs.jujutsu.enable = true;
+      programs.jujutsu.package = pkgs.unstable.jujutsu;
+      programs.jujutsu.settings = {
+        user.name = "Jacob Jonsson";
+        user.email = "jacob.t.jonsson@gmail.com";
+        aliases.tug- = [ "bookmark" "move" "--from" "heads(::@- & bookmarks())" "--to" "@-" ];
+        aliases.tug = [ "bookmark" "move" "--from" "heads(::@- & bookmarks())" "--to" "@" ];
+      };
+
       programs.nix-index.enable = true;
       programs.nix-index.enableBashIntegration = false;
       programs.nix-index.enableZshIntegration = false;
