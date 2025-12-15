@@ -34,9 +34,6 @@ in {
 
       # Appearance for GTK apps
       gtk.enable = true;
-      gtk.cursorTheme.name = "Vanilla-DMZ";
-      gtk.cursorTheme.package = pkgs.vanilla-dmz;
-      gtk.cursorTheme.size = if cfg.useHiDPI then 32 else 16;
       gtk.font.package = pkgs.dejavu_fonts;
       gtk.font.name = "DejaVu Sans";
       gtk.iconTheme.package = pkgs.adwaita-icon-theme;
