@@ -15,7 +15,7 @@ let
 
   sessionVariables = {
     # Download programs temporarily if missing
-    NIX_AUTO_RUN = true;
+    NIX_AUTO_RUN = "true";
     # Only show the last two directories in current path
     PROMPT_DIRTRIM = "2";
     # Override default script directory
@@ -70,7 +70,7 @@ in
         sshfs
         steam
         stow
-        tdesktop
+        telegram-desktop
         tmux
         vlc
         wally-cli
@@ -163,7 +163,7 @@ in
           bindkey "\e[5D" backward-word
           bindkey "\e[1;5D" backward-word
         '';
-        initExtra = ''
+        initContent = ''
           PROMPT_COLOR=$(echo yellow blue green cyan magenta | ${pkgs.findutils}/bin/xargs ${pkgs.coreutils}/bin/shuf -n 1 -e)
           PROMPT="%B%F{$PROMPT_COLOR}%}%3~%f%b%f%F{white} %# %f";
           # Source .shell/aliases
@@ -202,19 +202,17 @@ in
 
       programs.git = {
         enable = true;
-        userName = "Jacob Jonsson";
-        userEmail = "jacob.t.jonsson@gmail.com";
 
-        signing.key = "D822DFB8049AF39ADF43EA0A7E30B9B047F7202E";
-        signing.signByDefault = true;
+        settings = {
+          user.name = "Jacob Jonsson";
+          user.email = "jacob.t.jonsson@gmail.com";
 
-        aliases = {
-          amend = "commit --amend -C HEAD";
-          fp = "push --force-with-lease";
-          sha = "rev-parse --short HEAD";
-        };
+          alias = {
+            amend = "commit --amend -C HEAD";
+            fp = "push --force-with-lease";
+            sha = "rev-parse --short HEAD";
+          };
 
-        extraConfig = {
           github.user = "Jassob";
           pull.rebase = true;
           rebase.autosquash = true;

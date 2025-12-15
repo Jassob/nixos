@@ -28,7 +28,6 @@
 
   hardware = {
     keyboard.zsa.enable = true;
-    pulseaudio.enable = false;
 
     bluetooth = {
       enable = true;
@@ -39,7 +38,7 @@
       enable = true;
       extraPackages = with pkgs; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        vaapiVdpau
+        libva-vdpau-driver
         libvdpau-va-gl
       ];
     };
@@ -123,7 +122,7 @@
   services.libinput.touchpad.disableWhileTyping = true;
 
   # Hibernate after closing lid
-  services.logind.lidSwitch = "hibernate";
+  services.logind.settings.Login.HandleLidSwitch = "hibernate";
 
   # Enable smart card reader
   services.pcscd.enable = true;
@@ -140,6 +139,10 @@
     pulse.enable = true;
   };
 
+  # Enable GDM.
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
@@ -151,16 +154,12 @@
       options = "ctrl:nocaps";
     };
 
-    # Enable GDM and set default session to XMonad.
-    displayManager = {
-      gdm.enable = true;
-      importedVariables = [
-        "XDG_SESSION_TYPE"
-        "XDG_CURRENT_DESKTOP"
-        "XDG_SESSION_DESKTOP"
-      ];
-    };
-    desktopManager.gnome.enable = true;
+    # Set default session to XMonad.
+    displayManager.importedVariables = [
+      "XDG_SESSION_TYPE"
+      "XDG_CURRENT_DESKTOP"
+      "XDG_SESSION_DESKTOP"
+    ];
     windowManager.xmonad.enable = true;
   };
 
