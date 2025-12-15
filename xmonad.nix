@@ -24,7 +24,6 @@ in {
         libnotify
         networkmanagerapplet
         pavucontrol
-        picom
         pulsemixer
         scrot
         trayer
@@ -99,6 +98,10 @@ in {
             urgency = "low";
           };
         };
+      };
+
+      services.picom = {
+        enable = true;
       };
 
       services.sxhkd = {
