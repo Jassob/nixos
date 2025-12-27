@@ -35,6 +35,13 @@
             nixpkgs.overlays = [ overlay-unstable overlay-emacs ];
           })
           {
+            # Enable touchpad support (enabled default in most desktopManager).
+            services.libinput.enable = true;
+            services.libinput.touchpad.disableWhileTyping = true;
+
+            # Hibernate after closing lid
+            services.logind.settings.Login.HandleLidSwitch = "hibernate";
+
             networking.hostName = "jassob-XPS-13";
             networking.interfaces.wlp164s0.useDHCP = true;
 
@@ -48,6 +55,7 @@
             home-manager.users.jassob.home.stateVersion = "21.11"; # See comment for system.stateVersion
           }
           ./configuration.nix
+          ./desktop.nix
           ./hardware-configurations/xps-13.nix
           nixos-hardware.nixosModules.dell-xps-13-9300
         ];

@@ -26,7 +26,7 @@ let
 
 in
 {
-  imports = [ home-manager.nixosModules.default ./xmonad.nix ];
+  imports = [ home-manager.nixosModules.default ];
 
   # Allow users to update binary cache settings
   nix.settings = { trusted-users = [ username ]; };
@@ -47,69 +47,17 @@ in
     shell = pkgs.zsh;
   };
 
-  nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
-
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     users.jassob = {
-      home.packages = with pkgs; [
-        bat
-        entr
-        google-chrome
-        graphviz
-        ispell
-        logseq
-        mu
-        networkmanager
-        pass
-        pavucontrol
-        playerctl
-        ripgrep
-        spotify
-        sshfs
-        steam
-        stow
-        telegram-desktop
-        tmux
-        vlc
-        wally-cli
-        xclip
-
-        # Rust development
-        rustup
-
-        # Web development
-        yarn
-        nodejs
-        nodePackages.typescript-language-server
-        nodePackages.prettier
-
-        gnomeExtensions.ddterm
-        gnomeExtensions.caffeine
-        gnomeExtensions.run-or-raise
-      ];
-
       home.file = {
         ".shell/aliases".source = ./files/shell_aliases;
         ".mbsyncrc".source = ./files/mbsyncrc;
       };
 
-      home.pointerCursor = {
-        name = "Vanilla-DMZ";
-        package = pkgs.vanilla-dmz;
-        x11.enable = true;
-        gtk.enable = true;
-      };
-
       manual.html.enable = true;
       xdg.enable = true;
-
-      # Ensure fonts installed via Nix are picked up.
-      fonts.fontconfig.enable = true;
-
-      programs.alacritty.enable = true;
-      programs.alacritty.settings.font.normal.family = "Iosevka Nerd Font";
 
       programs.bash = {
         enable = true;
@@ -201,34 +149,32 @@ in
       programs.z-lua.enableBashIntegration = true;
       programs.z-lua.enableZshIntegration = true;
 
-      programs.git = {
-        enable = true;
+      programs.git.enable = true;
+      programs.git.signing = {
+        key = "D822DFB8049AF39ADF43EA0A7E30B9B047F7202E";
+        signByDefault = true;
+      };
+      programs.git.settings = {
+        user.name = "Jacob Jonsson";
+        user.email = "jacob.t.jonsson@gmail.com";
 
-        settings = {
-          user.name = "Jacob Jonsson";
-          user.email = "jacob.t.jonsson@gmail.com";
-
-          alias = {
-            amend = "commit --amend -C HEAD";
-            fp = "push --force-with-lease";
-            sha = "rev-parse --short HEAD";
-          };
-
-          github.user = "Jassob";
-          pull.rebase = true;
-          rebase.autosquash = true;
-          rebase.autostash = true;
-          rebase.updateRefs = true;
-          rerere.enabled = true;
-
-          url."ssh://git@github.com/einride/".insteadOf =
-            "https://github.com/einride/";
-          url."ssh://git@github.com/einride-autonomous/".insteadOf =
-            "https://github.com/einride-autonomous/";
+        alias = {
+          amend = "commit --amend -C HEAD";
+          fp = "push --force-with-lease";
+          sha = "rev-parse --short HEAD";
         };
 
-        signing.key = "D822DFB8049AF39ADF43EA0A7E30B9B047F7202E";
-        signing.signByDefault = true;
+        github.user = "Jassob";
+        pull.rebase = true;
+        rebase.autosquash = true;
+        rebase.autostash = true;
+        rebase.updateRefs = true;
+        rerere.enabled = true;
+
+        url."ssh://git@github.com/einride/".insteadOf =
+          "https://github.com/einride/";
+        url."ssh://git@github.com/einride-autonomous/".insteadOf =
+          "https://github.com/einride-autonomous/";
       };
 
       programs.jujutsu.enable = true;
@@ -244,19 +190,8 @@ in
       programs.nix-index.enableBashIntegration = false;
       programs.nix-index.enableZshIntegration = false;
 
-      programs.rofi.enable = true;
-      programs.rofi.package =
-        pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
-
       programs.script-directory.enable = true;
       programs.script-directory.settings.SD_ROOT = "/home/${username}/scripts";
-
-      # Browsers and passwords
-      programs.browserpass.enable = true;
-      programs.browserpass.browsers = [ "chrome" "firefox" ];
-      programs.firefox.enable = true;
-      programs.firefox.package = pkgs.unstable.firefox;
-      programs.firefox.profiles.jassob.isDefault = true;
 
       # Setup Emacs base package and enable it as a user service.
       programs.emacs.enable = true;
@@ -289,22 +224,6 @@ in
         # Private key
         "31FFDEC76903AFE64324FA2FAF64B6C07CAB091A"
       ];
-
-      # Mail synchronization
-      services.mbsync.enable = true;
-      services.mbsync.postExec = "${pkgs.mu}/bin/mu index";
-
-      # Enable redshift
-      services.redshift = {
-        enable = true;
-        temperature.day = 4000;
-        temperature.night = 3500;
-        longitude = "11.98";
-        latitude = "57.68";
-      };
-
-      # Enable disk monitor and mounter
-      services.udiskie.enable = true;
     };
   };
 }
