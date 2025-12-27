@@ -193,7 +193,6 @@ in
 
       # Setup Emacs base package and enable it as a user service.
       programs.emacs.enable = true;
-      programs.emacs.package = pkgs.emacs-unstable;
       programs.emacs.extraPackages = epkgs: [
         epkgs.pdf-tools
         epkgs.org-pdftools
