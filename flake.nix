@@ -35,6 +35,8 @@
             nixpkgs.overlays = [ overlay-unstable overlay-emacs ];
           })
           {
+            services.displayManager.defaultSession = "none+xmonad";
+
             # Enable touchpad support (enabled default in most desktopManager).
             services.libinput.enable = true;
             services.libinput.touchpad.disableWhileTyping = true;
@@ -57,6 +59,7 @@
           ./configuration.nix
           ./desktop.nix
           ./hardware-configurations/xps-13.nix
+          ./xmonad.nix
           nixos-hardware.nixosModules.dell-xps-13-9300
         ];
       };

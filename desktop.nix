@@ -20,8 +20,6 @@
     nerd-fonts.inconsolata
   ];
 
-  services.displayManager.defaultSession = "none+xmonad";
-
   services.gnome.gnome-browser-connector.enable = true;
   services.gnome.gnome-online-accounts.enable = lib.mkForce false;
 
