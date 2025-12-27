@@ -38,12 +38,6 @@
             networking.hostName = "jassob-XPS-13";
             networking.interfaces.wlp164s0.useDHCP = true;
 
-            services.nextjs-ollama-llm-ui.enable = true;
-            services.ollama.enable = true;
-            services.ollama.loadModels = [
-              "mistral"
-            ];
-
             # This value determines the NixOS release from which the default
             # settings for stateful data, like file locations and database versions
             # on your system were taken. It‘s perfectly fine and recommended to leave
