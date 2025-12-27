@@ -8,7 +8,6 @@
   imports = [
     ./cachix.nix
     ./user.nix
-    ./system-packages.nix
   ];
 
   # Supposedly better for SSDs.
@@ -24,6 +23,20 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
   };
+
+  # Make sure these packages are installed to the system.
+  environment.systemPackages = with pkgs; [
+    coreutils
+    diffutils
+    file
+    gnupg
+    htop
+    nixpkgs-fmt
+    openssh
+    pciutils
+    unzip
+    usbutils
+  ];
 
   hardware = {
     keyboard.zsa.enable = true;
