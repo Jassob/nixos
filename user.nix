@@ -14,8 +14,6 @@ let
   '';
 
   sessionVariables = {
-    # Download programs temporarily if missing
-    NIX_AUTO_RUN = "true";
     # Only show the last two directories in current path
     PROMPT_DIRTRIM = "2";
     # Override default script directory
@@ -137,7 +135,6 @@ in
         package = pkgs.nix-direnv;
       };
 
-      programs.command-not-found.enable = true;
       programs.eza.enable = true;
 
       programs.fzf.enable = true;
@@ -186,6 +183,7 @@ in
         aliases.tug = [ "bookmark" "move" "--from" "heads(::@- & bookmarks())" "--to" "@" ];
       };
 
+      programs.command-not-found.enable = false;
       programs.nix-index.enable = true;
       programs.nix-index.enableBashIntegration = false;
       programs.nix-index.enableZshIntegration = false;
