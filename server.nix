@@ -1,9 +1,15 @@
 { config, lib, pkgs, ... }:
 
 {
+  # Firewall
+  networking.firewall.allowedTCPPorts = [
+    8001 # Weechat Relay (as configured in ~/.weechat/relay.conf)
+    8081 # AdGuard Home admin page
+    80 443 # Web ports
+  ];
+
   # IRC stuff
-  services.weechat.enable = true;
-  services.weechat.headless = true;
+  environment.systemPackages = [ pkgs.weechat ];
   services.bitlbee.enable = true;
   services.bitlbee.authBackend = "pam";
   services.bitlbee.authMode = "Closed";
@@ -12,13 +18,6 @@
     purple-discord
   ];
   services.bitlbee.plugins = [ pkgs.bitlbee-facebook ];
-
-  programs.screen.enable = true;
-  programs.screen.screenrc = ''
-    multiuser on
-    acladd jassob
-    term screen-256color
-  '';
 
   # Git stuff
   users.groups.git = { };
@@ -70,9 +69,6 @@
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "jacob.t.jonsson@gmail.com";
   security.acme.defaults.enableDebugLogs = true;
-
-  # Allow web ports.
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   # Setup web servers.
   services.nginx = {
