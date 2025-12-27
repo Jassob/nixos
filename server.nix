@@ -12,7 +12,7 @@
   environment.systemPackages = [ pkgs.weechat ];
   services.bitlbee.enable = true;
   services.bitlbee.authBackend = "pam";
-  services.bitlbee.authMode = "Closed";
+  services.bitlbee.authMode = "Open";
   services.bitlbee.libpurple_plugins = with pkgs.pidginPackages; [
     # tdlib-purple
     purple-discord
