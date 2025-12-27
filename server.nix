@@ -59,6 +59,7 @@
     PasswordAuthentication = false;
     PubkeyAuthentication = true;
     UsePAM = true;
+    X11Forwarding = true;
   };
 
   # Ad blocking
