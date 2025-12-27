@@ -8,7 +8,6 @@
   imports = [
     ./cachix.nix
     ./user.nix
-    ./system-fonts.nix
     ./system-packages.nix
   ];
 
@@ -61,19 +60,12 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs = {
-    adb.enable = true; # Add Android debugging support
-    browserpass.enable = true;
-    command-not-found.enable = true;
-    evince.enable = true;
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
     };
     less.enable = true;
-    light.enable = true; # Let users control backlight
     mtr.enable = true; # My traceroute
-    nm-applet.enable = true;
-    slock.enable = true;
     tmux.enable = true;
     wireshark.enable = true;
     zsh = {
@@ -109,26 +101,11 @@
     LC_TIME = "sv_SE.UTF-8";
   };
 
-  # List services that you want to enable:
+  # Enable bluetooth
   services.blueman.enable = true;
-
-  services.displayManager.defaultSession = "none+xmonad";
-
-  services.gnome.gnome-browser-connector.enable = true;
-  services.gnome.gnome-online-accounts.enable = lib.mkForce false;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
-  services.libinput.touchpad.disableWhileTyping = true;
-
-  # Hibernate after closing lid
-  services.logind.settings.Login.HandleLidSwitch = "hibernate";
 
   # Enable smart card reader
   services.pcscd.enable = true;
-
-  services.power-profiles-daemon.enable = false; # Conflicts with tlp
-  services.tlp.enable = true;
 
   # Enable sound with pipewire.
   security.rtkit.enable = true;
@@ -137,30 +114,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-  };
-
-  # Enable GDM.
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-
-    # Configure keymap
-    xkb = {
-      layout = "se";
-      model = "emacs";
-      options = "ctrl:nocaps";
-    };
-
-    # Set default session to XMonad.
-    displayManager.importedVariables = [
-      "XDG_SESSION_TYPE"
-      "XDG_CURRENT_DESKTOP"
-      "XDG_SESSION_DESKTOP"
-    ];
-    windowManager.xmonad.enable = true;
   };
 
   virtualisation.podman.enable = true;
