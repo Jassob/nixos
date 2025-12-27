@@ -8,7 +8,6 @@
   imports = [
     ./cachix.nix
     ./user.nix
-    ./system-packages.nix
   ];
 
   # Supposedly better for SSDs.
@@ -24,6 +23,34 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
   };
+
+  # Make sure these packages are installed to the system.
+  environment.systemPackages = with pkgs; [
+    coreutils
+    diffutils
+    file
+    gnupg
+    htop
+    nixpkgs-fmt
+    openssh
+    pciutils
+    unzip
+    usbutils
+  ];
+
+  fonts.packages = with pkgs; [
+    corefonts # Microsoft free fonts
+    dejavu_fonts
+    hasklig
+    inconsolata
+    input-fonts
+    iosevka
+    ubuntu-classic
+    xits-math
+    nerd-fonts.iosevka
+    nerd-fonts.fira-code
+    nerd-fonts.inconsolata
+  ];
 
   hardware = {
     keyboard.zsa.enable = true;
