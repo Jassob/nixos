@@ -14,6 +14,9 @@ in {
   };
 
   config = {
+    # Allow users to control screen backlight
+    programs.light.enable = true;
+
     # Packages needed for my XMonad setup
     home-manager.users.jassob = {
       home.packages = with pkgs; [
