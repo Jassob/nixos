@@ -169,8 +169,8 @@ in {
 
         profileExtra = ''
           # Restore last wallpaper
-          if [ -f "$''${HOME}"/.fehbg ]; then
-             $''${HOME}/.fehbg
+          if [ -f "''${HOME}"/.fehbg ]; then
+             ''${HOME}/.fehbg
           else
              systemctl start --user dwall.service
           fi
