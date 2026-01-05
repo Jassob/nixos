@@ -105,4 +105,19 @@
       };
     };
   };
+
+  # Mail servers.
+  services.postfix = {
+    enable = true;
+    enableSubmission = true;
+    enableSubmissions = true;
+
+    hostname = "mail.gpgj.se";
+    domain = "gpgj.se";
+
+    settings.main.smtpd_tls_chain_files = [
+      "${config.security.acme.certs."gpgj.se".directory}/key.pem"
+      "${config.security.acme.certs."gpgj.se".directory}/fullchain.pem"
+    ];
+  };
 }
