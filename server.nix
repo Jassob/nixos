@@ -57,6 +57,9 @@
   services.openssh.settings = {
     # Only allow pub keys
     PasswordAuthentication = false;
+    PermitEmptyPasswords = false;
+    PermitRootLogin = "no";
+    AllowUsers = ["jassob" "git"];
     PubkeyAuthentication = true;
     UsePAM = true;
     X11Forwarding = true;
