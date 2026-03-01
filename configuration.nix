@@ -120,6 +120,9 @@
   # Enable smart card reader
   services.pcscd.enable = true;
 
+  # Enable resolvectl for DNS
+  services.resolved.enable = true;
+
   # Enable sound with pipewire.
   security.rtkit.enable = true;
   services.pipewire = {
